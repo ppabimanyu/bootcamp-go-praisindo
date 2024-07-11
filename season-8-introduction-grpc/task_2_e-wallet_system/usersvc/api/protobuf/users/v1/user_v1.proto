@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package proto.users.v1;
+
+option go_package = "../wallet/v1;wallet";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+service Users {
+  rpc GetAllUser(google.protobuf.Empty) returns (GetAllUsersRes) {
+    option (google.api.http) = {
+      get: "/v1/wallet"
+    };
+  }
+  rpc GetDetailUser(GetDetailUserReq) returns (GetDetailUserRes) {
+    option (google.api.http) = {
+      get: "/v1/wallet/{id}"
+    };
+  }
+  rpc CreateUser(CreateUserReq) returns (MutationRes) {
+    option (google.api.http) = {
+      post: "/v1/wallet"
+      body: "*"
+    };
+  }
+  rpc UpdateUser(UpdateUserReq) returns (MutationRes) {
+    option (google.api.http) = {
+      put: "/v1/wallet/{id}"
+      body: "*"
+    };
+  }
+  rpc DeleteUser(DeleteUserReq) returns (MutationRes) {
+    option (google.api.http) = {
+      delete: "/v1/wallet/{id}"
+    };
+  }
+}
+
+message User {
+  uint64 id = 1;
+  string name = 2;
+  string email = 3;
+  string phone = 4;
+  string type = 5;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
+}
+
+message GetAllUsersRes {
+  repeated User users = 1;
+}
+
+message GetDetailUserReq {
+  uint64 id = 1;
+}
+
+message GetDetailUserRes {
+  User user = 1;
+}
+
+message CreateUserReq {
+  string name = 1;
+  string email = 2;
+  string phone = 3;
+  string type = 4;
+}
+
+message UpdateUserReq {
+  uint64 id = 1;
+  string name = 2;
+  string email = 3;
+  string phone = 4;
+  string type = 5;
+}
+
+message DeleteUserReq {
+  uint64 id = 1;
+}
+
+message MutationRes {
+  string message = 1;
+}

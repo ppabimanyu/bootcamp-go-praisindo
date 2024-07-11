@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package proto.wallets.v1;
+
+option go_package = "../wallet/v1;wallet";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+service Wallets {
+  rpc GetAllWallet(google.protobuf.Empty) returns (GetAllWalletsRes) {
+    option (google.api.http) = {
+      get: "/v1/wallet"
+    };
+  }
+  rpc GetDetailWallet(GetDetailWalletReq) returns (GetDetailWalletRes) {
+    option (google.api.http) = {
+      get: "/v1/wallet/{id}"
+    };
+  }
+  rpc CreateWallet(CreateWalletReq) returns (MutationRes) {
+    option (google.api.http) = {
+      post: "/v1/wallet"
+      body: "*"
+    };
+  }
+  rpc UpdateWallet(UpdateWalletReq) returns (MutationRes) {
+    option (google.api.http) = {
+      put: "/v1/wallet/{id}"
+      body: "*"
+    };
+  }
+  rpc DeleteWallet(DeleteWalletReq) returns (MutationRes) {
+    option (google.api.http) = {
+      delete: "/v1/wallet/{id}"
+    };
+  }
+}
+
+message Wallet {
+  uint64 id = 1;
+  uint64 user_id = 2;
+  double balance = 3;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
+
+message GetAllWalletsRes {
+  repeated Wallet wallets = 1;
+}
+
+message GetDetailWalletReq {
+  uint64 id = 1;
+}
+
+message GetDetailWalletRes {
+  Wallet wallet = 1;
+}
+
+message CreateWalletReq {
+  uint64 id = 1;
+  uint64 user_id = 2;
+  double balance = 3;
+}
+
+message UpdateWalletReq {
+  uint64 id = 1;
+  uint64 user_id = 2;
+  double balance = 3;
+}
+
+message DeleteWalletReq {
+  uint64 id = 1;
+}
+
+message MutationRes {
+  string message = 1;
+}

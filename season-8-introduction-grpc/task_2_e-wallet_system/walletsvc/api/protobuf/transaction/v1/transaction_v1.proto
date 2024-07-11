@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package proto.transactions.v1;
+
+option go_package = "../transaction/v1;transaction";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+service Transactions {
+  rpc GetAllTransaction(GetAllTransactionReq) returns (GetAllTransactionsRes) {}
+  rpc GetDetailTransaction(GetDetailTransactionReq) returns (GetDetailTransactionRes) {}
+  rpc CreateTransaction(CreateTransactionReq) returns (MutationRes) {}
+}
+
+message Transaction {
+  uint64 id = 1;
+  uint64 wallet_id = 2;
+  uint64 user_id = 3;
+  string reference_id = 4;
+  string type = 5;
+  double amount = 6;
+  string status = 7;
+  string description = 8;
+  google.protobuf.Timestamp created_at = 9;
+  google.protobuf.Timestamp updated_at = 10;
+}
+
+message GetAllTransactionReq {
+  uint64 user_id = 1;
+}
+
+message GetAllTransactionsRes {
+  repeated Transaction transactions = 1;
+}
+
+message GetDetailTransactionReq {
+  uint64 user_id = 1;
+  uint64 id = 2;
+}
+
+message GetDetailTransactionRes {
+  Transaction transaction = 1;
+}
+
+message CreateTransactionReq {
+  uint64 wallet_id = 1;
+  uint64 user_id = 2;
+  string type = 3;
+  double amount = 4;
+  string description = 5;
+}
+
+message MutationRes {
+  string message = 1;
+}

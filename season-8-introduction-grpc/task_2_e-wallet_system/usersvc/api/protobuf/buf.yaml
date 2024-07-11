@@ -1,0 +1,10 @@
+version: v1
+name: buf.build/intro-grpc/protos
+lint:
+  use:
+    - BASIC
+breaking:
+  use:
+    - FILE
+deps:
+  - buf.build/googleapis/googleapis
