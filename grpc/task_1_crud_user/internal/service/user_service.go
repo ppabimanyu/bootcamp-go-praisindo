@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 
-	"intro-grpc-task/internal/entity"
-	"intro-grpc-task/pkg/exception"
+	"task_1_crud_user/internal/entity"
+	"task_1_crud_user/pkg/exception"
 )
 
 type UserService interface {

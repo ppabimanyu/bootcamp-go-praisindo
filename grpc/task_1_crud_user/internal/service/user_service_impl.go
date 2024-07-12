@@ -5,10 +5,10 @@ import (
 
 	"gorm.io/gorm"
 
-	"intro-grpc-task/internal/entity"
-	"intro-grpc-task/internal/repository"
-	"intro-grpc-task/pkg/exception"
-	"intro-grpc-task/pkg/validator"
+	"task_1_crud_user/internal/entity"
+	"task_1_crud_user/internal/repository"
+	"task_1_crud_user/pkg/exception"
+	"task_1_crud_user/pkg/validator"
 )
 
 type UserServiceImpl struct {

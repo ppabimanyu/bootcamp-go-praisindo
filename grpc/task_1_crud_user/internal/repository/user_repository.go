@@ -3,7 +3,7 @@ package repository
 import (
 	"gorm.io/gorm"
 
-	"intro-grpc-task/internal/entity"
+	"task_1_crud_user/internal/entity"
 )
 
 type UserRepository interface {

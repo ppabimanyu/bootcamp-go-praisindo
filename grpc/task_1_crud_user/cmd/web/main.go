@@ -11,15 +11,15 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
-	handler "intro-grpc-task/internal/delivery/grpc"
-	"intro-grpc-task/migration"
+	handler "task_1_crud_user/internal/delivery/grpc"
+	"task_1_crud_user/migration"
 
-	pb "intro-grpc-task/api/protobuf/users/v1"
-	"intro-grpc-task/internal/repository"
-	"intro-grpc-task/internal/service"
-	"intro-grpc-task/pkg/database"
-	"intro-grpc-task/pkg/logger"
-	"intro-grpc-task/pkg/validator"
+	pb "task_1_crud_user/api/protobuf/users/v1"
+	"task_1_crud_user/internal/repository"
+	"task_1_crud_user/internal/service"
+	"task_1_crud_user/pkg/database"
+	"task_1_crud_user/pkg/logger"
+	"task_1_crud_user/pkg/validator"
 )
 
 func main() {

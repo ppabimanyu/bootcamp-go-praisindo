@@ -1,8 +1,8 @@
 package migration
 
 import (
-	"intro-grpc-task/internal/entity"
-	"intro-grpc-task/pkg/database"
+	"task_1_crud_user/internal/entity"
+	"task_1_crud_user/pkg/database"
 )
 
 func AutoMigration(db *database.Database) {

@@ -1,4 +1,4 @@
-module intro-grpc-task
+module task_1_crud_user
 
 go 1.22.3
 

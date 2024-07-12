@@ -9,8 +9,8 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	pb "intro-grpc-task/api/protobuf/users/v1"
-	"intro-grpc-task/internal/service"
+	pb "task_1_crud_user/api/protobuf/users/v1"
+	"task_1_crud_user/internal/service"
 )
 
 type UserHandler struct {

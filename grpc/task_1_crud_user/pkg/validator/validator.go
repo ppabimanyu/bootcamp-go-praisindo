@@ -17,8 +17,8 @@ import (
 
 	"github.com/go-playground/validator/v10"
 
-	"intro-grpc-task/pkg/phone"
-	"intro-grpc-task/pkg/pointer"
+	"task_1_crud_user/pkg/phone"
+	"task_1_crud_user/pkg/pointer"
 )
 
 // Validator is a struct that contains a pointer to a validator.Validate instance.
