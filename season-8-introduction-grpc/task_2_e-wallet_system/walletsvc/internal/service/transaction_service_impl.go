@@ -20,6 +20,10 @@ type TransactionServiceImpl struct {
 	transactionRepo repository.TransactionRepository
 }
 
+func NewTransactionServiceImpl(validator *validator.Validator, db *gorm.DB, walletRepo repository.WalletRepository, transactionRepo repository.TransactionRepository) *TransactionServiceImpl {
+	return &TransactionServiceImpl{validator: validator, db: db, walletRepo: walletRepo, transactionRepo: transactionRepo}
+}
+
 func (s *TransactionServiceImpl) GetAllTransactions(ctx context.Context, req GetAllTransactionsReq) (GetAllTransactionsRes, *exception.Exception) {
 	if errs := s.validator.Struct(req); errs != nil {
 		return nil, exception.InvalidArgument(errs)

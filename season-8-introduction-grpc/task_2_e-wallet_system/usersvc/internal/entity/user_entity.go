@@ -3,7 +3,7 @@ package entity
 import "time"
 
 const (
-	_usersTableName = "wallet"
+	_usersTableName = "users"
 )
 
 type User struct {

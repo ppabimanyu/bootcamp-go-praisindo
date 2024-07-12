@@ -27,7 +27,6 @@ type GetTransactionRes *entity.Transaction
 type CreateTransactionReq struct {
 	WalletID    uint64  `json:"wallet_id"`
 	UserID      uint64  `json:"user_id"`
-	ReferenceID string  `json:"reference_id"`
 	Type        string  `json:"type"`
 	Amount      float64 `json:"amount"`
 	Description string  `json:"description"`

@@ -6,6 +6,7 @@ import (
 	"gorm.io/gorm"
 
 	"usersvc/internal/entity"
+	"usersvc/internal/enums"
 	"usersvc/internal/repository"
 	"usersvc/pkg/exception"
 	"usersvc/pkg/validator"
@@ -35,7 +36,7 @@ func (s *UserServiceImpl) GetAllUsers(ctx context.Context) (GetAllUsersRes, *exc
 
 	users, err := s.userRepo.FindAll(tx)
 	if err != nil {
-		return nil, exception.Internal("failed to get all wallet", err)
+		return nil, exception.Internal("failed to get all users", err)
 	}
 
 	if err := tx.Commit().Error; err != nil {
@@ -65,7 +66,7 @@ func (s *UserServiceImpl) GetDetailUser(ctx context.Context, req GetDetailUserRe
 	return user, nil
 }
 
-func (s *UserServiceImpl) CreateUser(ctx context.Context, req CreateUserReq) *exception.Exception {
+func (s *UserServiceImpl) CreateCustomer(ctx context.Context, req CreateCustomerReq) *exception.Exception {
 	if errs := s.validator.Struct(req); errs != nil {
 		return exception.InvalidArgument(errs)
 	}
@@ -76,8 +77,34 @@ func (s *UserServiceImpl) CreateUser(ctx context.Context, req CreateUserReq) *ex
 	if err := s.userRepo.Create(tx, &entity.User{
 		Name:  req.Name,
 		Email: req.Email,
+		Phone: req.Phone,
+		Type:  string(enums.Customer),
 	}); err != nil {
-		return exception.Internal("failed to get all wallet", err)
+		return exception.Internal("failed to create customer", err)
+	}
+
+	if err := tx.Commit().Error; err != nil {
+		return exception.Internal("failed to commit transaction", err)
+	}
+
+	return nil
+}
+
+func (s *UserServiceImpl) CreateMerchant(ctx context.Context, req CreateMerchantReq) *exception.Exception {
+	if errs := s.validator.Struct(req); errs != nil {
+		return exception.InvalidArgument(errs)
+	}
+
+	tx := s.db.WithContext(ctx).Begin()
+	defer tx.Rollback()
+
+	if err := s.userRepo.Create(tx, &entity.User{
+		Name:  req.Name,
+		Email: req.Email,
+		Phone: req.Phone,
+		Type:  string(enums.Merchant),
+	}); err != nil {
+		return exception.Internal("failed to create merchant", err)
 	}
 
 	if err := tx.Commit().Error; err != nil {

@@ -19,7 +19,11 @@ import (
 func main() {
 	var (
 		validate = validator.NewValidator()
-		db       = database.NewDatabase(&database.GormConfig{
+		log      = logger.NewSlog(&logger.SlogConfig{
+			LogPath: "./logs",
+			Debug:   true,
+		})
+		db = database.NewDatabase(&database.GormConfig{
 			DbHost:   "156.67.218.177",
 			DbUser:   "root",
 			DbPass:   "234524",
@@ -27,10 +31,7 @@ func main() {
 			DbPort:   "3306",
 			DbDriver: "mysql",
 			Debug:    true,
-		})
-		log = logger.NewSlog(&logger.SlogConfig{
-			LogPath: "./logs",
-			Debug:   true,
+			Logger:   log,
 		})
 	)
 
@@ -45,7 +46,7 @@ func main() {
 
 	migration.AutoMigration(db)
 
-	s, err := net.Listen("tcp", "0.0.0.0:8080")
+	s, err := net.Listen("tcp", "0.0.0.0:50051")
 	if err != nil {
 		panic(err)
 	}

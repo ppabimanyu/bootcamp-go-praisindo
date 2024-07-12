@@ -38,6 +38,8 @@ func (h *UserHandler) GetAllUser(ctx context.Context, empty *emptypb.Empty) (*pb
 			Id:        u.ID,
 			Name:      u.Name,
 			Email:     u.Email,
+			Phone:     u.Phone,
+			Type:      u.Type,
 			CreatedAt: timestamppb.New(*u.CreatedAt),
 			UpdatedAt: timestamppb.New(*u.UpdatedAt),
 		})
@@ -56,15 +58,29 @@ func (h *UserHandler) GetDetailUser(ctx context.Context, req *pb.GetDetailUserRe
 		Id:        user.ID,
 		Name:      user.Name,
 		Email:     user.Email,
+		Phone:     user.Phone,
+		Type:      user.Type,
 		CreatedAt: timestamppb.New(*user.CreatedAt),
 		UpdatedAt: timestamppb.New(*user.UpdatedAt),
 	}}, nil
 }
 
-func (h *UserHandler) CreateUser(ctx context.Context, req *pb.CreateUserReq) (*pb.MutationRes, error) {
-	if exc := h.userService.CreateUser(ctx, service.CreateUserReq{
+func (h *UserHandler) CreateCustomer(ctx context.Context, req *pb.CreateCustomerReq) (*pb.MutationRes, error) {
+	if exc := h.userService.CreateCustomer(ctx, service.CreateCustomerReq{
 		Name:  req.Name,
 		Email: req.Email,
+		Phone: req.Phone,
+	}); exc != nil {
+		return nil, status.Error(codes.Code(exc.GetGrpcCode()), fmt.Sprint(exc.Message))
+	}
+	return &pb.MutationRes{Message: "success"}, nil
+}
+
+func (h *UserHandler) CreateMerchant(ctx context.Context, req *pb.CreateMerchantReq) (*pb.MutationRes, error) {
+	if exc := h.userService.CreateMerchant(ctx, service.CreateMerchantReq{
+		Name:  req.Name,
+		Email: req.Email,
+		Phone: req.Phone,
 	}); exc != nil {
 		return nil, status.Error(codes.Code(exc.GetGrpcCode()), fmt.Sprint(exc.Message))
 	}

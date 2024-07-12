@@ -8,5 +8,6 @@ import (
 func AutoMigration(db *database.Database) {
 	db.MigrateDB(
 		&entity.Wallet{},
+		&entity.Transaction{},
 	)
 }

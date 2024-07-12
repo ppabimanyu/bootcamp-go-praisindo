@@ -18,6 +18,10 @@ type TransactionHandler struct {
 	transactionService service.TransactionService
 }
 
+func NewTransactionHandler(transactionService service.TransactionService) *TransactionHandler {
+	return &TransactionHandler{transactionService: transactionService}
+}
+
 func (h *TransactionHandler) GetAllTransaction(ctx context.Context, req *transaction.GetAllTransactionReq) (*transaction.GetAllTransactionsRes, error) {
 	transactions, exc := h.transactionService.GetAllTransactions(ctx, service.GetAllTransactionsReq{UserID: req.UserId})
 	if exc != nil {
@@ -68,6 +72,15 @@ func (h *TransactionHandler) GetDetailTransaction(ctx context.Context, req *tran
 }
 
 func (h *TransactionHandler) CreateTransaction(ctx context.Context, req *transaction.CreateTransactionReq) (*transaction.MutationRes, error) {
-	// TODO implement me
-	panic("implement me")
+	if exc := h.transactionService.CreateTransaction(ctx, service.CreateTransactionReq{
+		WalletID:    req.WalletId,
+		UserID:      req.UserId,
+		Type:        req.Type,
+		Amount:      req.Amount,
+		Description: req.Description,
+	}); exc != nil {
+		return nil, status.Error(codes.Code(exc.GetGrpcCode()), fmt.Sprint(exc.Message))
+	}
+
+	return &transaction.MutationRes{Message: "success"}, nil
 }

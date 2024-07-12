@@ -13,6 +13,10 @@ type TransactionRepositoryImpl struct {
 	log logger.Logger
 }
 
+func NewTransactionRepositoryImpl(log logger.Logger) *TransactionRepositoryImpl {
+	return &TransactionRepositoryImpl{log: log}
+}
+
 func (r *TransactionRepositoryImpl) FindAll(tx *gorm.DB, userID uint64) ([]*entity.Transaction, error) {
 	var transactions []*entity.Transaction
 	if err := tx.Where("user_id = ?", userID).Find(&transactions).Error; err != nil {

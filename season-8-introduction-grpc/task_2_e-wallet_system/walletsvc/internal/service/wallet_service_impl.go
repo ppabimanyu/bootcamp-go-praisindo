@@ -11,25 +11,25 @@ import (
 	"walletsvc/pkg/validator"
 )
 
-type UserServiceImpl struct {
+type WalletServiceImpl struct {
 	validator  *validator.Validator
 	db         *gorm.DB
 	walletRepo repository.WalletRepository
 }
 
-func NewUserServiceImpl(
+func NewWalletServiceImpl(
 	validator *validator.Validator,
 	db *gorm.DB,
 	walletRepo repository.WalletRepository,
-) *UserServiceImpl {
-	return &UserServiceImpl{
+) WalletService {
+	return &WalletServiceImpl{
 		validator:  validator,
 		db:         db,
 		walletRepo: walletRepo,
 	}
 }
 
-func (s *UserServiceImpl) GetAllWallets(ctx context.Context) (GetAllWalletsRes, *exception.Exception) {
+func (s *WalletServiceImpl) GetAllWallets(ctx context.Context) (GetAllWalletsRes, *exception.Exception) {
 	tx := s.db.WithContext(ctx).Begin()
 	defer tx.Rollback()
 
@@ -45,7 +45,7 @@ func (s *UserServiceImpl) GetAllWallets(ctx context.Context) (GetAllWalletsRes, 
 	return wallets, nil
 }
 
-func (s *UserServiceImpl) GetDetailWallet(ctx context.Context, req GetDetailWalletReq) (GetDetailUserRes, *exception.Exception) {
+func (s *WalletServiceImpl) GetDetailWallet(ctx context.Context, req GetDetailWalletReq) (GetDetailUserRes, *exception.Exception) {
 	if errs := s.validator.Struct(req); errs != nil {
 		return nil, exception.InvalidArgument(errs)
 	}
@@ -65,7 +65,7 @@ func (s *UserServiceImpl) GetDetailWallet(ctx context.Context, req GetDetailWall
 	return wallet, nil
 }
 
-func (s *UserServiceImpl) CreateWallet(ctx context.Context, req CreateWalletReq) *exception.Exception {
+func (s *WalletServiceImpl) CreateWallet(ctx context.Context, req CreateWalletReq) *exception.Exception {
 	if errs := s.validator.Struct(req); errs != nil {
 		return exception.InvalidArgument(errs)
 	}
@@ -87,7 +87,7 @@ func (s *UserServiceImpl) CreateWallet(ctx context.Context, req CreateWalletReq)
 	return nil
 }
 
-func (s *UserServiceImpl) UpdateWallet(ctx context.Context, req UpdateWalletReq) *exception.Exception {
+func (s *WalletServiceImpl) UpdateWallet(ctx context.Context, req UpdateWalletReq) *exception.Exception {
 	if errs := s.validator.Struct(req); errs != nil {
 		return exception.InvalidArgument(errs)
 	}
@@ -117,7 +117,7 @@ func (s *UserServiceImpl) UpdateWallet(ctx context.Context, req UpdateWalletReq)
 	return nil
 }
 
-func (s *UserServiceImpl) DeleteWallet(ctx context.Context, req DeleteWalletReq) *exception.Exception {
+func (s *WalletServiceImpl) DeleteWallet(ctx context.Context, req DeleteWalletReq) *exception.Exception {
 	if errs := s.validator.Struct(req); errs != nil {
 		return exception.InvalidArgument(errs)
 	}

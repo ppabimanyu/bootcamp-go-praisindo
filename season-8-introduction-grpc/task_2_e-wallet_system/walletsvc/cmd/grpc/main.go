@@ -5,10 +5,11 @@ import (
 
 	"google.golang.org/grpc"
 
+	pbtransaction "walletsvc/api/protobuf/transaction/v1"
+	pbwallet "walletsvc/api/protobuf/wallet/v1"
 	handler "walletsvc/internal/delivery/grpc"
 	"walletsvc/migration"
 
-	pb "walletsvc/api/protobuf/wallet/v1"
 	"walletsvc/internal/repository"
 	"walletsvc/internal/service"
 	"walletsvc/pkg/database"
@@ -19,37 +20,48 @@ import (
 func main() {
 	var (
 		validate = validator.NewValidator()
-		db       = database.NewDatabase(&database.GormConfig{
+		log      = logger.NewSlog(&logger.SlogConfig{
+			LogPath: "./logs",
+			Debug:   true,
+		})
+		db = database.NewDatabase(&database.GormConfig{
 			DbHost:   "156.67.218.177",
 			DbUser:   "root",
 			DbPass:   "234524",
 			DbName:   "intro-grpc",
 			DbPort:   "3306",
+			DbPrefix: "",
 			DbDriver: "mysql",
 			Debug:    true,
-		})
-		log = logger.NewSlog(&logger.SlogConfig{
-			LogPath: "./logs",
-			Debug:   true,
+			Logger:   log,
 		})
 	)
 
-	walletRepo := repository.NewWalletRepositoryImpl(log)
+	var (
+		walletRepo      = repository.NewWalletRepositoryImpl(log)
+		transactionRepo = repository.NewTransactionRepositoryImpl(log)
+	)
 
-	walletService := service.NewUserServiceImpl(validate, db.GetDB(), walletRepo)
+	var (
+		walletService      = service.NewWalletServiceImpl(validate, db.GetDB(), walletRepo)
+		transactionService = service.NewTransactionServiceImpl(validate, db.GetDB(), walletRepo, transactionRepo)
+	)
 
-	walletHandler := handler.NewWalletHandler(walletService)
+	var (
+		walletHandler      = handler.NewWalletHandler(walletService)
+		transactionHandler = handler.NewTransactionHandler(transactionService)
+	)
 
 	grpcServer := grpc.NewServer()
-	pb.RegisterWalletsServer(grpcServer, walletHandler)
+	pbwallet.RegisterWalletsServer(grpcServer, walletHandler)
+	pbtransaction.RegisterTransactionsServer(grpcServer, transactionHandler)
 
 	migration.AutoMigration(db)
 
-	s, err := net.Listen("tcp", "0.0.0.0:8080")
+	s, err := net.Listen("tcp", "0.0.0.0:50052")
 	if err != nil {
 		panic(err)
 	}
-
 	if err := grpcServer.Serve(s); err != nil {
 		panic(err)
 	}
