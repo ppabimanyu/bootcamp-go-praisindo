@@ -1,0 +1,96 @@
+version: '3.8'
+
+services:
+  wallet-finance-web:
+    build: .
+    depends_on:
+      - postgres-wallet
+      - kafka-wallet
+    command: [ "./wallet-finance-web" ]
+    environment:
+      APP_NAME: wallet-finance
+      APP_ENV: development
+      GIN_MODE: release
+      APP_DEBUG: true
+      APP_VERSION: v2
+      HTTP_PORT: 8080
+      DEV_SHOW_QUERY: true
+      DB_PREFIX: boiler_
+      DB_CONNECTION: postgres
+      DB_HOST: postgres-wallet
+      DB_PORT: 5432
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_DATABASE: cms
+      LOG_PATH: ./logs/
+      ALLOW_ORIGINS: '*'
+      ALLOW_METHODS: POST,GET,PUT,DELETE
+      ALLOW_HEADERS: x-api-key
+      KAFKA_SECURITY_PROTOCOL: PLAIN
+      KAFKA_USERNAME: none
+      KAFKA_PASSWORD: none
+      KAFKA_BROKERS: kafka-wallet:9092
+      KAFKA_GROUP_ID: dev
+      KAFKA_TOPIC_TRANSACTION: transaction
+    ports:
+      - "8080:8080"
+    restart: on-failure
+    networks:
+      - wallet-network
+  wallet-finance-worker:
+    build: .
+    depends_on:
+      - wallet-finance-web
+      - postgres-wallet
+      - kafka-wallet
+    command: [ "./wallet-finance-worker" ]
+    environment:
+      APP_NAME: wallet-finance
+      APP_ENV: development
+      GIN_MODE: release
+      APP_DEBUG: true
+      APP_VERSION: v2
+      HTTP_PORT: 8080
+      DEV_SHOW_QUERY: true
+      DB_PREFIX: boiler_
+      DB_CONNECTION: postgres
+      DB_HOST: postgres-wallet
+      DB_PORT: 5432
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_DATABASE: cms
+      LOG_PATH: ./logs/
+      ALLOW_ORIGINS: '*'
+      ALLOW_METHODS: POST,GET,PUT,DELETE
+      ALLOW_HEADERS: x-api-key
+      KAFKA_SECURITY_PROTOCOL: PLAIN
+      KAFKA_USERNAME: none
+      KAFKA_PASSWORD: none
+      KAFKA_BROKERS: kafka-wallet:9092
+      KAFKA_GROUP_ID: dev
+      KAFKA_TOPIC_TRANSACTION: transaction
+    restart: on-failure
+    networks:
+      - wallet-network
+  postgres-wallet:
+    image: postgres:14.12
+    container_name: postgres-wallet
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: cms
+    ports:
+      - "5432:5432"
+    networks:
+      - wallet-network
+  kafka-wallet:
+    image: apache/kafka:latest
+    container_name: kafka-wallet
+    ports:
+      - 9092:9092
+    networks:
+      - wallet-network
+
+networks:
+  wallet-network:
+    driver: bridge

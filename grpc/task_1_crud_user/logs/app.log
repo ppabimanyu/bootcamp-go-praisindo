@@ -17,3 +17,4 @@
 {"time":"2024-07-09T10:21:28.296099+07:00","level":"INFO","source":{"function":"intro-grpc-task/pkg/database.(*Database).MigrateDB","file":"/Users/ppabimanyu/Development/bootcamp-go-praisindo/season-8-introduction-grpc/task/pkg/database/gorm.go","line":100},"msg":"successfully migrated users"}
 {"time":"2024-07-09T10:26:21.807171+07:00","level":"INFO","source":{"function":"intro-grpc-task/pkg/database.(*Database).MigrateDB","file":"/Users/ppabimanyu/Development/bootcamp-go-praisindo/season-8-introduction-grpc/task/pkg/database/gorm.go","line":100},"msg":"successfully migrated users"}
 {"time":"2024-07-09T10:26:22.810445+07:00","level":"INFO","msg":"Starting server at port 8081"}
+{"time":"2024-07-12T20:56:19.714629+07:00","level":"INFO","source":{"function":"task_1_crud_user/pkg/database.(*Database).MigrateDB","file":"/Users/ppabimanyu/Development/bootcamp-go-praisindo/grpc/task_1_crud_user/pkg/database/gorm.go","line":100},"msg":"successfully migrated wallet"}

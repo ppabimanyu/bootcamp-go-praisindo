@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.33.0
 // 	protoc        (unknown)
-// source: wallet/v1/user_v1.proto
+// source: users/v1/user_v1.proto
 
 package users
 
@@ -107,7 +107,7 @@ type GetAllUsersRes struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Users []*User `protobuf:"bytes,1,rep,name=wallet,proto3" json:"wallet,omitempty"`
+	Users []*User `protobuf:"bytes,1,rep,name=users,proto3" json:"users,omitempty"`
 }
 
 func (x *GetAllUsersRes) Reset() {
@@ -551,32 +551,32 @@ func file_users_v1_user_v1_proto_rawDescGZIP() []byte {
 
 var file_users_v1_user_v1_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_users_v1_user_v1_proto_goTypes = []interface{}{
-	(*User)(nil),                  // 0: proto.wallet.v1.User
-	(*GetAllUsersRes)(nil),        // 1: proto.wallet.v1.GetAllUsersRes
-	(*GetDetailUserReq)(nil),      // 2: proto.wallet.v1.GetDetailUserReq
-	(*GetDetailUserRes)(nil),      // 3: proto.wallet.v1.GetDetailUserRes
-	(*CreateUserReq)(nil),         // 4: proto.wallet.v1.CreateUserReq
-	(*UpdateUserReq)(nil),         // 5: proto.wallet.v1.UpdateUserReq
-	(*DeleteUserReq)(nil),         // 6: proto.wallet.v1.DeleteUserReq
-	(*MutationRes)(nil),           // 7: proto.wallet.v1.MutationRes
+	(*User)(nil),                  // 0: proto.users.v1.User
+	(*GetAllUsersRes)(nil),        // 1: proto.users.v1.GetAllUsersRes
+	(*GetDetailUserReq)(nil),      // 2: proto.users.v1.GetDetailUserReq
+	(*GetDetailUserRes)(nil),      // 3: proto.users.v1.GetDetailUserRes
+	(*CreateUserReq)(nil),         // 4: proto.users.v1.CreateUserReq
+	(*UpdateUserReq)(nil),         // 5: proto.users.v1.UpdateUserReq
+	(*DeleteUserReq)(nil),         // 6: proto.users.v1.DeleteUserReq
+	(*MutationRes)(nil),           // 7: proto.users.v1.MutationRes
 	(*timestamppb.Timestamp)(nil), // 8: google.protobuf.Timestamp
 	(*emptypb.Empty)(nil),         // 9: google.protobuf.Empty
 }
 var file_users_v1_user_v1_proto_depIdxs = []int32{
-	8, // 0: proto.wallet.v1.User.created_at:type_name -> google.protobuf.Timestamp
-	8, // 1: proto.wallet.v1.User.updated_at:type_name -> google.protobuf.Timestamp
-	0, // 2: proto.wallet.v1.GetAllUsersRes.wallet:type_name -> proto.wallet.v1.User
-	0, // 3: proto.wallet.v1.GetDetailUserRes.user:type_name -> proto.wallet.v1.User
-	9, // 4: proto.wallet.v1.Users.GetAllUser:input_type -> google.protobuf.Empty
-	2, // 5: proto.wallet.v1.Users.GetDetailUser:input_type -> proto.wallet.v1.GetDetailUserReq
-	4, // 6: proto.wallet.v1.Users.CreateUser:input_type -> proto.wallet.v1.CreateUserReq
-	5, // 7: proto.wallet.v1.Users.UpdateUser:input_type -> proto.wallet.v1.UpdateUserReq
-	6, // 8: proto.wallet.v1.Users.DeleteUser:input_type -> proto.wallet.v1.DeleteUserReq
-	1, // 9: proto.wallet.v1.Users.GetAllUser:output_type -> proto.wallet.v1.GetAllUsersRes
-	3, // 10: proto.wallet.v1.Users.GetDetailUser:output_type -> proto.wallet.v1.GetDetailUserRes
-	7, // 11: proto.wallet.v1.Users.CreateUser:output_type -> proto.wallet.v1.MutationRes
-	7, // 12: proto.wallet.v1.Users.UpdateUser:output_type -> proto.wallet.v1.MutationRes
-	7, // 13: proto.wallet.v1.Users.DeleteUser:output_type -> proto.wallet.v1.MutationRes
+	8, // 0: proto.users.v1.User.created_at:type_name -> google.protobuf.Timestamp
+	8, // 1: proto.users.v1.User.updated_at:type_name -> google.protobuf.Timestamp
+	0, // 2: proto.users.v1.GetAllUsersRes.users:type_name -> proto.users.v1.User
+	0, // 3: proto.users.v1.GetDetailUserRes.user:type_name -> proto.users.v1.User
+	9, // 4: proto.users.v1.Users.GetAllUser:input_type -> google.protobuf.Empty
+	2, // 5: proto.users.v1.Users.GetDetailUser:input_type -> proto.users.v1.GetDetailUserReq
+	4, // 6: proto.users.v1.Users.CreateUser:input_type -> proto.users.v1.CreateUserReq
+	5, // 7: proto.users.v1.Users.UpdateUser:input_type -> proto.users.v1.UpdateUserReq
+	6, // 8: proto.users.v1.Users.DeleteUser:input_type -> proto.users.v1.DeleteUserReq
+	1, // 9: proto.users.v1.Users.GetAllUser:output_type -> proto.users.v1.GetAllUsersRes
+	3, // 10: proto.users.v1.Users.GetDetailUser:output_type -> proto.users.v1.GetDetailUserRes
+	7, // 11: proto.users.v1.Users.CreateUser:output_type -> proto.users.v1.MutationRes
+	7, // 12: proto.users.v1.Users.UpdateUser:output_type -> proto.users.v1.MutationRes
+	7, // 13: proto.users.v1.Users.DeleteUser:output_type -> proto.users.v1.MutationRes
 	9, // [9:14] is the sub-list for method output_type
 	4, // [4:9] is the sub-list for method input_type
 	4, // [4:4] is the sub-list for extension type_name

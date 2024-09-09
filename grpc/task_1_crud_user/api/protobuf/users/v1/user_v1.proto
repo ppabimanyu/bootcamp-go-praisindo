@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package proto.users.v1;
 
-option go_package = "../wallet/v1;wallet";
+option go_package = "../users/v1;users";
 
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
@@ -11,29 +11,29 @@ import "google/protobuf/timestamp.proto";
 service Users {
   rpc GetAllUser(google.protobuf.Empty) returns (GetAllUsersRes) {
     option (google.api.http) = {
-      get: "/v1/wallet"
+      get: "/v1/users"
     };
   }
   rpc GetDetailUser(GetDetailUserReq) returns (GetDetailUserRes) {
     option (google.api.http) = {
-      get: "/v1/wallet/{id}"
+      get: "/v1/users/{id}"
     };
   }
   rpc CreateUser(CreateUserReq) returns (MutationRes) {
     option (google.api.http) = {
-      post: "/v1/wallet"
+      post: "/v1/users"
       body: "*"
     };
   }
   rpc UpdateUser(UpdateUserReq) returns (MutationRes) {
     option (google.api.http) = {
-      put: "/v1/wallet/{id}"
+      put: "/v1/users/{id}"
       body: "*"
     };
   }
   rpc DeleteUser(DeleteUserReq) returns (MutationRes) {
     option (google.api.http) = {
-      delete: "/v1/wallet/{id}"
+      delete: "/v1/users/{id}"
     };
   }
 }

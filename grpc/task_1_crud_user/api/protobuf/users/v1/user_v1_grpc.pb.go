@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.4.0
 // - protoc             (unknown)
-// source: wallet/v1/user_v1.proto
+// source: users/v1/user_v1.proto
 
 package users
 
@@ -20,11 +20,11 @@ import (
 const _ = grpc.SupportPackageIsVersion8
 
 const (
-	Users_GetAllUser_FullMethodName    = "/proto.wallet.v1.Users/GetAllUser"
-	Users_GetDetailUser_FullMethodName = "/proto.wallet.v1.Users/GetDetailUser"
-	Users_CreateUser_FullMethodName    = "/proto.wallet.v1.Users/CreateUser"
-	Users_UpdateUser_FullMethodName    = "/proto.wallet.v1.Users/UpdateUser"
-	Users_DeleteUser_FullMethodName    = "/proto.wallet.v1.Users/DeleteUser"
+	Users_GetAllUser_FullMethodName    = "/proto.users.v1.Users/GetAllUser"
+	Users_GetDetailUser_FullMethodName = "/proto.users.v1.Users/GetDetailUser"
+	Users_CreateUser_FullMethodName    = "/proto.users.v1.Users/CreateUser"
+	Users_UpdateUser_FullMethodName    = "/proto.users.v1.Users/UpdateUser"
+	Users_DeleteUser_FullMethodName    = "/proto.users.v1.Users/DeleteUser"
 )
 
 // UsersClient is the client API for Users service.
@@ -234,7 +234,7 @@ func _Users_DeleteUser_Handler(srv interface{}, ctx context.Context, dec func(in
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Users_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "proto.wallet.v1.Users",
+	ServiceName: "proto.users.v1.Users",
 	HandlerType: (*UsersServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -259,5 +259,5 @@ var Users_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "wallet/v1/user_v1.proto",
+	Metadata: "users/v1/user_v1.proto",
 }

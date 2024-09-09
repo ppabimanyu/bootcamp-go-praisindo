@@ -52,7 +52,7 @@ func main() {
 
 	migration.AutoMigration(db)
 
-	s, err := net.Listen("tcp", "0.0.0.0:8080")
+	s, err := net.Listen("tcp", "0.0.0.0:50051")
 	if err != nil {
 		panic(err)
 	}
@@ -64,7 +64,7 @@ func main() {
 	time.Sleep(1 * time.Second)
 
 	conn, err := grpc.NewClient(
-		"0.0.0.0:8080",
+		"0.0.0.0:50051",
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 	)
 	if err != nil {
@@ -78,6 +78,6 @@ func main() {
 
 	gwServer := gin.Default()
 	gwServer.Group("v1/*{grpc_gateway}").Any("", gin.WrapH(gmMux))
-	log.Println("Starting server at port 8081")
-	_ = gwServer.Run(":8081")
+	log.Println("Starting server at port 8080")
+	_ = gwServer.Run(":8080")
 }

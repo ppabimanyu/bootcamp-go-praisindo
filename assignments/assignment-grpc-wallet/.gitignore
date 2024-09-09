@@ -1,0 +1,5 @@
+.vscode
+.env
+.idea
+/app/api/asset
+/tmp
